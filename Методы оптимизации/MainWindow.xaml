@@ -1,0 +1,126 @@
+﻿<hc:Window x:Class="OptimizatonMethods.MainWindow"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           xmlns:hc="https://handyorg.github.io/handycontrol"
+           xmlns:controls="clr-namespace:WpfMath.Controls;assembly=WpfMath"
+           xmlns:viewModels="clr-namespace:OptimizatonMethods.ViewModels"
+           mc:Ignorable="d"
+           ShowTitle="False"
+           Title="" Height="698" Width="1400" MinHeight="600" MinWidth="1400" FontSize="16"
+           d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
+           SizeChanged="MainWindow_OnSizeChanged">
+    <hc:Window.NonClientAreaContent>
+        <StackPanel Orientation="Horizontal">
+            <Menu>
+                <MenuItem Header="Файл">
+                    <MenuItem Header="2D график" Command="{Binding TwoDChartCommand}" />
+                    <MenuItem Header="3D график" Command="{Binding ThreeDChartCommand}" />
+                </MenuItem>
+        <MenuItem Header="Задание" Command="{Binding TaskInfo}"/>
+        <MenuItem Header="О программе" Command="{Binding AboutCommand}"/>
+            </Menu>
+            <TextBlock Text="{Binding Title,RelativeSource={RelativeSource FindAncestor,AncestorType=Window}}"
+                       Margin="5" FontSize="14" VerticalAlignment="Stretch" />
+        </StackPanel>
+
+    </hc:Window.NonClientAreaContent>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="479*" />
+            <ColumnDefinition Width="426*" />
+            <ColumnDefinition Width="495*" />
+        </Grid.ColumnDefinitions>
+    <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Column="0" Margin="0,0,60,0">
+
+                <controls:FormulaControl Scale="20" Margin="10"
+                                         Formula="C = \alpha*(G*  \gamma *( (T2- T1)^V +    (\beta *A-T1) ^V ))" />
+
+                <StackPanel>
+                    <hc:TextBox hc:InfoElement.Title="Вариант"
+                                 hc:Text="13" Focusable="False"/>
+                    <hc:ComboBox hc:InfoElement.Title="Метод оптимизации"
+                                 x:Name="methodBox"/>
+                    <hc:NumericUpDown hc:InfoElement.Title="Нормирующий множитель α"
+                                      hc:InfoElement.TitlePlacement="Left" hc:InfoElement.TitleWidth="3*"
+                                      Style="{StaticResource NumericUpDownExtend}" Margin="10 1"
+                                      Value="{Binding Task.Alpha}" />
+                    <hc:NumericUpDown hc:InfoElement.Title="Нормирующий множитель β"
+                                      hc:InfoElement.TitlePlacement="Left" hc:InfoElement.TitleWidth="3*"
+                                      Style="{StaticResource NumericUpDownExtend}" Margin="10 1"
+                                      Value="{Binding Task.Beta}" />
+                    <hc:NumericUpDown hc:InfoElement.Title="Нормирующий множитель μ"
+                                      hc:InfoElement.TitlePlacement="Left" hc:InfoElement.TitleWidth="3*"
+                                      Style="{StaticResource NumericUpDownExtend}" Margin="10 1"
+                                      Value="{Binding Task.Mu}" />
+                    <hc:NumericUpDown hc:InfoElement.Title="Количество реакционной массы, G кг" hc:InfoElement.TitleWidth="3*"
+                                      hc:InfoElement.TitlePlacement="Left" Style="{StaticResource NumericUpDownExtend}"
+                                      Margin="10 1" Value="{Binding Task.G}" />
+                    <hc:NumericUpDown hc:InfoElement.Title="Давление в реакторе A, КПа"
+                                      hc:InfoElement.TitlePlacement="Left" hc:InfoElement.TitleWidth="3*"
+                                      Style="{StaticResource NumericUpDownExtend}" Margin="10 1"
+                                      Value="{Binding Task.H}" />
+                    <hc:NumericUpDown hc:InfoElement.Title="Рабочий объем реактора V, м^3" hc:InfoElement.TitleWidth="3*"
+                                      hc:InfoElement.TitlePlacement="Left" Style="{StaticResource NumericUpDownExtend}"
+                                      Margin="10 1" Value="{Binding Task.N}" />
+                    <hc:NumericUpDown hc:InfoElement.Title="Затраты на очистку 1 кг, у.е"
+                                      hc:InfoElement.TitleWidth="3*"
+                                      hc:InfoElement.TitlePlacement="Left" Style="{StaticResource NumericUpDownExtend}"
+                                      Margin="10 1" Value="{Binding Task.Price}" />
+                    <hc:NumericUpDown hc:InfoElement.Title="Точность решения" hc:InfoElement.TitleWidth="3*"
+                                      hc:InfoElement.TitlePlacement="Left" Style="{StaticResource NumericUpDownExtend}"
+                                      Margin="10 1" Value="{Binding Task.Step}" />
+
+                </StackPanel>
+
+                <GroupBox Header="Ограничения" Style="{StaticResource GroupBoxTab}">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.2*" />
+                                <ColumnDefinition Width="5*" />
+                                <ColumnDefinition Width="1.2*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <hc:NumericUpDown Grid.Column="0"
+                                              Value="{Binding Task.TCoilMin}" />
+                            <Label Grid.Column="1" HorizontalAlignment="Stretch">≤ Температура в змеевике, C ≤</Label>
+                            <hc:NumericUpDown Grid.Column="2"
+                                              Value="{Binding Task.TCoilMax}" />
+
+                            <hc:NumericUpDown Grid.Row="1" Grid.Column="0"
+                                              Value="{Binding Task.TCasingMin}" />
+                            <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch">≤ Температура в рубашке, C ≤</Label>
+                            <hc:NumericUpDown Grid.Row="1" Grid.Column="2"
+                                              Value="{Binding Task.TCasingMax}" />
+
+                        </Grid>
+                        <hc:ElementGroup Orientation="Horizontal" Margin="5" />
+
+                        <hc:NumericUpDown hc:InfoElement.Title="Сумма температур (T1+T2), C ≤"
+                                          hc:InfoElement.TitlePlacement="Left"
+                                          Style="{StaticResource NumericUpDownExtend}"
+                                          HorizontalAlignment="Left"
+                                          Value="{Binding Task.TempSum}" />
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+            <Button Grid.Row="1" Margin="5" Command="{Binding CalculateCommand}">Рассчитать</Button>
+        </Grid>
+
+
+        <DataGrid Grid.Column="2" ItemsSource="{Binding DataList}" AutoGenerateColumns="True"
+                  AutoGeneratingColumn="OnAutoGeneratingColumn" ColumnWidth="*" />
+
+    </Grid>
+</hc:Window>

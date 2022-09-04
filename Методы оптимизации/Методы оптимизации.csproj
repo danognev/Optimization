@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <SignAssembly>False</SignAssembly>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ChartDirector.Net.Desktop.Controls" Version="7.0.0" />
+    <PackageReference Include="HandyControl" Version="3.3.0" />
+    <PackageReference Include="HandyControl.Lang.ru" Version="3.3.0" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
+    <PackageReference Include="WpfMath" Version="0.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="WPF_MVVM_Classes">
+      <HintPath>Services\WPF_MVVM_Classes.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
