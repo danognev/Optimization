@@ -21,7 +21,7 @@ namespace OptimizatonMethods.Models
 
     private static bool Conditions(double t1, double t2)
     {
-      return t1 >= Task.T1Min && t1 <= Task.T1Max && t2 >= Task.T2Min && t2 <= Task.T2Max && t1 - t2 >= Task.TempSum;
+      return t1 >= Task.T1Min && t1 <= Task.T1Max && t2 >= Task.T2Min && t2 <= Task.T2Max && t2 - t1 >= Task.TempSum;
     }
 
     public void Calculate(out List<Point3D> points3D)
